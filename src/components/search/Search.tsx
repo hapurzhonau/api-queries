@@ -22,16 +22,22 @@ class Search extends Component<Props, { inputText: string }> {
   };
   render(): ReactNode {
     return (
-      <form onSubmit={this.handleFormSubmit}>
+      <form
+        onSubmit={this.handleFormSubmit}
+        style={{ display: 'flex' }}
+        className="gap-3"
+      >
         <input
           name="search"
           type="text"
-          placeholder="..."
-          className="border-2 "
+          placeholder=" Search"
+          className="border-2 rounded-sm w-sm"
           value={this.state.inputText}
           onChange={this.handleOnchange}
         />
-        <button className="border-2 cursor-pointer">Search</button>
+        <button className="border-2 cursor-pointer rounded-sm px-3 py-1 bg-gray-700">
+          Search
+        </button>
       </form>
     );
   }
