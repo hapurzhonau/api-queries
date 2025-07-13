@@ -1,69 +1,102 @@
-# React + TypeScript + Vite
+# Class Components React App with Error Boundary
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> A React + TypeScript project using **class components only**, showcasing local state management, API interaction, `localStorage` persistence, and an `ErrorBoundary` implementation.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📌 Task
 
-## Expanding the ESLint configuration
+[React project setup. Class components. Error boundary](https://github.com/rolling-scopes-school/tasks/blob/master/react/modules/tasks/class-components.md)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🚀 Deployment
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### [🔗 Live Demo](https://hapurzhonau-rsreact2025.netlify.app/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 📸 Screenshot:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+<img width="1219" height="570" alt="image" src="https://github.com/user-attachments/assets/94e1ec53-d5b0-41d7-b9ab-39b6d037a686" />
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 🎯 Features
+
+- Class components only (no hooks used)
+- Search field with persistent input (saved in `localStorage`)
+- Real-time data fetching from [Rick and Morty API](https://rickandmortyapi.com/)
+- Initial API request runs on page load (with or without search term)
+- Skeletons indicators shown during requests
+- API error handling with user feedback
+- Global error boundary for catching rendering errors
+- Dedicated button to trigger an error and demonstrate fallback UI
+
+---
+
+## 🧱 Tech Stack
+
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- ESLint, Prettier, Husky
+
+---
+
+## 📁 Project Structure
+<pre>
+src/
+├── api/Api.ts --> Fetch logic (with search + LS)
+├── components/
+│   ├── search/Search.tsx --> Controlled input + form handling
+│   ├── cards/Cards.tsx --> Character card list
+│   ├── buttonError/ButtonError.tsx --> Button that throws an error
+│   └── errorBoundary/ErrorBoundary.tsx --> Catching rendering errors
+├── interfaces/apiInterface.ts --> API response typing
+├── pages/MainPage.tsx --> Stateful container (search, fetch, render)
+├── App.tsx --> App wrapped in ErrorBoundary
+└── main.tsx --> Entry point
+</pre>
+
+
+---
+
+## 🛠 Available Scripts
+
+| Script              | Description                     |
+|---------------------|---------------------------------|
+| `npm run dev`       | Run dev server (Vite)           |
+| `npm run lint`      | Run ESLint                      |
+| `npm run format:fix`| Run Prettier formatter          |
+
+---
+
+## ✅ Completed Requirements
+
+| Feature                                               | Status |
+|--------------------------------------------------------|--------|
+| ESLint setup + no errors on lint run                  | ✅     |
+| Prettier + format:fix command                         | ✅     |
+| Husky pre-commit with lint                            | ✅     |
+| Class components with Search + Results layout         | ✅     |
+| API fetch on mount                                    | ✅     |
+| Skeletons shown while fetching                           | ✅     |
+| Search triggers fetch + saves to `localStorage`       | ✅     |
+| `localStorage` used on initial load                   | ✅     |
+| `ErrorBoundary` catches render errors                 | ✅     |
+| Test button throws an error and shows fallback UI     | ✅     |
+
+---
+
+## ⚠️ Limitations
+
+- Only class components are used due to task constraints  
+- Pagination and full API edge cases are not covered  
+- UI styling is basic (focus on functionality over design)
+
+---
+
+## 📄 License
+
+This project is created for **educational purposes only** as part of the [RS School](https://rs.school/) curriculum.
