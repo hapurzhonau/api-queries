@@ -10,7 +10,7 @@ interface Props {
 }
 
 class Search extends Component<Props, { inputText: string }> {
-  state = { inputText: '' };
+  state = { inputText: localStorage.getItem('search') || '' };
   handleOnchange = (e: ChangeEvent<HTMLInputElement>) => {
     this.setState({ inputText: e.target.value });
     console.log(this.state);
