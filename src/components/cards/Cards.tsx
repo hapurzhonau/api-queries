@@ -8,15 +8,15 @@ interface Props {
 class Cards extends PureComponent<Props, object> {
   render(): ReactNode {
     return (
-      <ul>
+      <ul className="grid-cols-4 gap-4" style={{ display: 'grid' }}>
         {this.props.cards.map((card) => (
-          <div key={card.id}>
-            <li>{card.name}</li>
+          <li key={card.id} className="bg-gray-700 rounded-sm p-1">
             <div
-              className="w-full h-64 bg-cover bg-center bg-no-repeat"
-              style={{ backgroundColor: `url(${card.image})` }}
+              className="aspect-square bg-contain bg-center bg-no-repeat rounded-t-sm"
+              style={{ backgroundImage: `url(${card.image})` }}
             ></div>
-          </div>
+            <p>{card.name}</p>
+          </li>
         ))}
       </ul>
     );
