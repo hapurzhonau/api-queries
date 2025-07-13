@@ -8,11 +8,15 @@ export const getAllCharacters = async () => {
 
   try {
     const response = await fetch(url);
-    if (!response.ok)
-      throw new Error(`Oops! Something went wrong with request`);
-    const data: Promise<ApiResponse> = await response.json();
+    const data: ApiResponse = await response.json();
+    if (!response.ok) throw new Error(data.error);
     return data;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    const data: ApiResponse = {
+      info: { count: 0, pages: 1, next: '1', prev: '1' },
+      error: err instanceof Error ? err.message : 'Unknown error',
+      results: [],
+    };
+    return data;
   }
 };
