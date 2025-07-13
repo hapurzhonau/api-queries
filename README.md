@@ -59,7 +59,26 @@ src/
 └── main.tsx --> Entry point
 </pre>
 
+---
+## 🧪 How to Run & Check the Project Locally
 
+To test and verify the application locally, follow these steps:
+
+### Clone the repository
+```bash
+git clone https://github.com/hapurzhonau/rs-react.git
+cd rs-react 
+```
+ or 
+```
+git clone https://github.com/hapurzhonau/rs-react.git my-project
+cd my-project
+```
+ and
+```
+npm install
+npm run dev
+```
 ---
 
 ## 🛠 Available Scripts
@@ -69,7 +88,7 @@ src/
 | `npm run dev`       | Run dev server (Vite)           |
 | `npm run lint`      | Run ESLint                      |
 | `npm run format:fix`| Run Prettier formatter          |
-
+| `npm run prepare`   | Prepares Husky hooks (only once after cloning) |
 ---
 
 ## ✅ Completed Requirements
