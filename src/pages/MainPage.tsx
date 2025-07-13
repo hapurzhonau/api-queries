@@ -2,17 +2,26 @@ import { Component, type ReactNode } from 'react';
 import Search from '../components/search/Search';
 import Cards from '../components/cards/Cards';
 import { getAllCharacters } from '../api/Api';
-import type { Character } from '../interfaces/apiInterface';
+import type { Character, Info } from '../interfaces/apiInterface';
 import ButtonError from '../components/buttonError/ButtonError';
+import CardsSkeleton from '../components/cardsSkeleton/cardsSkeleton';
 
 interface State {
   cards: Character[];
   isLoading: boolean;
   searchValue: string;
+  error: undefined | string;
+  info: Info;
 }
-
+const initialState = {
+  cards: [],
+  isLoading: false,
+  searchValue: '',
+  error: undefined,
+  info: { count: 0, pages: 1, next: '1', prev: '1' },
+};
 class MainPage extends Component {
-  state: State = { cards: [], isLoading: false, searchValue: '' };
+  state: State = initialState;
   handleGetSearchValue = (value: string) => {
     this.setState({ searchValue: value }, () => {
       localStorage.setItem('search', value);
@@ -24,16 +33,16 @@ class MainPage extends Component {
   }
   getCharacters = async () => {
     this.setState((prev) => ({ ...prev, isLoading: true }));
-    const characters = await getAllCharacters();
-    if (!characters) return;
+    const data = await getAllCharacters();
     this.setState((prev) => ({
       ...prev,
       isLoading: false,
-      cards: characters.results,
+      cards: data.results,
+      error: data.error,
     }));
   };
   render(): ReactNode {
-    const { cards, isLoading } = this.state;
+    const { cards, isLoading, error } = this.state;
     console.log(this.state);
     return (
       <main
@@ -42,7 +51,14 @@ class MainPage extends Component {
       >
         <ButtonError />
         <Search handleGetSearchValue={this.handleGetSearchValue} />
-        {isLoading ? <div>Loading...</div> : <Cards cards={cards} />}
+
+        {isLoading ? (
+          <CardsSkeleton />
+        ) : error ? (
+          <h3>{error}</h3>
+        ) : (
+          <Cards cards={cards} />
+        )}
       </main>
     );
   }

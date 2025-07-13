@@ -19,6 +19,7 @@ class Search extends Component<Props, { inputText: string }> {
     e.preventDefault();
     const formData = new FormData(e.currentTarget).get('search');
     if (formData) this.props.handleGetSearchValue(formData.toString());
+    else this.props.handleGetSearchValue('');
   };
   render(): ReactNode {
     return (

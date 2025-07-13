@@ -1,5 +1,6 @@
 export interface ApiResponse {
   info: Info;
+  error?: string;
   results: Character[];
 }
 export interface Character {
@@ -20,7 +21,7 @@ interface Origin {
   name: string;
   url: string;
 }
-interface Info {
+export interface Info {
   count: number;
   pages: number;
   next: string;
