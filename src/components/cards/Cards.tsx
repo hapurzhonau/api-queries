@@ -8,16 +8,21 @@ interface Props {
 class Cards extends PureComponent<Props, object> {
   render(): ReactNode {
     return (
-      <ul className="grid-cols-4 gap-4" style={{ display: 'grid' }}>
-        {this.props.cards.map((card) => (
-          <li key={card.id} className="bg-gray-700 rounded-sm p-1">
-            <div
-              className="aspect-square bg-contain bg-center bg-no-repeat rounded-t-sm"
-              style={{ backgroundImage: `url(${card.image})` }}
-            ></div>
-            <p>{card.name}</p>
-          </li>
-        ))}
+      <ul className="lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 grid">
+        {this.props.cards.length ? (
+          this.props.cards.map((card) => (
+            <li key={card.id} className="bg-gray-700 rounded-sm p-1">
+              <img
+                className="w-full aspect-square object-cover rounded-t-sm"
+                src={card.image}
+                alt={card.name}
+              />
+              <p>{card.name}</p>
+            </li>
+          ))
+        ) : (
+          <h3>Noting here</h3>
+        )}
       </ul>
     );
   }
