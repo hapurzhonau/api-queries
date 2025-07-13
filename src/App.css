@@ -1,3 +1,8 @@
-body {
-  background-color: rgb(73, 73, 73);
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply text-white bg-gray-800;
+  }
 }
+
