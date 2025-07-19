@@ -28,6 +28,6 @@ describe('cards', () => {
   });
   test('render title if list is empty', () => {
     render(<Cards cards={[]} />);
-    expect(screen.getByText(/nothing/gi)).toBeInTheDocument();
+    expect(screen.getByText(/nothing/i)).toBeInTheDocument();
   });
 });
