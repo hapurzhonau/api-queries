@@ -7,7 +7,7 @@ import type { Character } from '../interfaces/apiInterface';
 import { beforeAll, afterEach, afterAll } from 'vitest';
 export const user = userEvent.setup();
 
-const mockCharacters: Character[] = [
+export const mockCharacters: Character[] = [
   {
     id: 1,
     image: 'image1.png',
