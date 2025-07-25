@@ -4,7 +4,7 @@ import Cards from '../components/cards/Cards';
 import { getAllCharacters } from '../api/Api';
 import type { Character, Info } from '../interfaces/apiInterface';
 import ButtonError from '../components/buttonError/ButtonError';
-import CardsSkeleton from '../components/cardsSkeleton/CardsSkeleton';
+import { CardsSkeleton } from '../components/cardsSkeleton/CardsSkeleton';
 
 interface State {
   cards: Character[];
