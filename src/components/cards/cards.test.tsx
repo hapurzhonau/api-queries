@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
-import Cards from './Cards';
+import { Cards } from './Cards';
 import type { Character } from '../../interfaces/apiInterface';
 
 const mockCharacters: Character[] = [
