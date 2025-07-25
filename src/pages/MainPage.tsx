@@ -1,5 +1,5 @@
 import { Component, type ReactNode } from 'react';
-import Search from '../components/search/Search';
+import { Search } from '../components/search/Search';
 import { Cards } from '../components/cards/Cards';
 import { getAllCharacters } from '../api/Api';
 import type { Character, Info } from '../interfaces/apiInterface';
