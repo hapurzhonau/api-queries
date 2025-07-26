@@ -35,7 +35,7 @@ export const MainPage = () => {
 
   return (
     <main
-      className="gap-8 p-8"
+      className="gap-8 p-4"
       style={{ display: 'flex', flexDirection: 'column' }}
     >
       <ButtonError />
