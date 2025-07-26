@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from 'vitest';
-import MainPage from './MainPage';
+import { MainPage } from './MainPage';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import { user } from '../__test__/setupTests';
 
