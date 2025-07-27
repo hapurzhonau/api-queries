@@ -46,13 +46,11 @@ export const MainPage = () => {
   const handleGetSearchValue = (value: string) => {
     setSearchValue(value);
     setSearchParams({ page: '1', name: value });
-    getCharacters();
   };
 
   useEffect(() => {
     getCharacters();
-    handlePageChange(page);
-  }, [getCharacters, handlePageChange, page]);
+  }, [getCharacters]);
 
   return (
     <>
