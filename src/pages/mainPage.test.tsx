@@ -58,4 +58,11 @@ describe('MainPage component', () => {
       expect(screen.getByRole('heading', { level: 3 })).toBeInTheDocument();
     });
   });
+  test('open details with click on card ', async () => {
+    const cards = await screen.findAllByRole('listitem');
+    await user.click(cards[0]);
+    await waitFor(() => {
+      expect(screen.getByRole('complementary')).toBeInTheDocument();
+    });
+  });
 });

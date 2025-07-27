@@ -30,7 +30,6 @@ export const Details = () => {
     getOneCharacter();
   }, [id]);
   if (isLoading) return <p>Loading details...</p>;
-  // if (error) return <p>{error}</p>;
   if (!character) return null;
   return (
     <div className="flex flex-col gap-4">

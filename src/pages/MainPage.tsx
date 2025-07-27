@@ -16,9 +16,11 @@ export const MainPage = () => {
   const [error, setError] = useState<string | undefined>(undefined);
   const [totalPages, setTotalPages] = useState(1);
   const [searchValue, setSearchValue] = useLocalStorage('search', '');
+
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const name = searchParams.get('name') || '';
+
   const { id: details } = useParams();
 
   const handlePageChange = useCallback(
@@ -48,16 +50,7 @@ export const MainPage = () => {
     setSearchValue(value);
     setSearchParams({ page: '1', name: value });
   };
-  useEffect(() => {
-    const hasPage = searchParams.get('page');
-    const hasName = searchParams.get('name');
-    if (!hasPage || !hasName) {
-      setSearchParams({
-        page: hasPage || '1',
-        name: hasName ?? searchValue,
-      });
-    }
-  }, [searchParams, setSearchParams, searchValue]);
+
   useEffect(() => {
     getCharacters();
   }, [getCharacters]);
@@ -73,7 +66,10 @@ export const MainPage = () => {
           <h3>{error}</h3>
         ) : (
           <>
-            <div className={clsx('first', details && 'flex', 'second')}>
+            <div
+              role="complementary"
+              className={clsx('first', details && 'flex', 'second')}
+            >
               <Cards cards={cards} />
               {details && (
                 <aside className="w-1/3 border-l pl-4">
