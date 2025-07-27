@@ -17,7 +17,7 @@ export const AboutPage = () => (
     <div className="gap-4 flex">
       <p>Recourse:</p>
       <NavLink
-        to="https://rs.school/"
+        to="https://rs.school/courses/reactjs"
         target="_blank"
         rel="noopener noreferrer"
         className="text-gray-500"

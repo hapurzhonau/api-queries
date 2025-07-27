@@ -19,7 +19,7 @@ describe('MainPage component', () => {
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue('');
     expect(cardsList).toHaveLength(3);
-    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByRole('region')).toBeInTheDocument();
     expect(screen.queryByRole('heading', { level: 3 })).not.toBeInTheDocument();
   });
 
