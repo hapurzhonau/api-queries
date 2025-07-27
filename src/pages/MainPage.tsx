@@ -6,8 +6,9 @@ import type { Character } from '../interfaces/apiInterface';
 import { ButtonError } from '../components/buttonError/ButtonError';
 import { CardsSkeleton } from '../components/cardsSkeleton/CardsSkeleton';
 import { Button } from '../components/button/Button';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { Outlet, useParams, useSearchParams } from 'react-router-dom';
 import { useLocalStorage } from '../utils/custom-hook/useLocalStorage';
+import clsx from 'clsx';
 
 export const MainPage = () => {
   const [cards, setCards] = useState<Character[]>([]);
@@ -15,10 +16,10 @@ export const MainPage = () => {
   const [error, setError] = useState<string | undefined>(undefined);
   const [totalPages, setTotalPages] = useState(1);
   const [searchValue, setSearchValue] = useLocalStorage('search', '');
-
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const name = searchParams.get('name') || '';
+  const { id: details } = useParams();
 
   const handlePageChange = useCallback(
     (newPage: number) => {
@@ -47,7 +48,16 @@ export const MainPage = () => {
     setSearchValue(value);
     setSearchParams({ page: '1', name: value });
   };
-
+  useEffect(() => {
+    const hasPage = searchParams.get('page');
+    const hasName = searchParams.get('name');
+    if (!hasPage || !hasName) {
+      setSearchParams({
+        page: hasPage || '1',
+        name: hasName ?? searchValue,
+      });
+    }
+  }, [searchParams, setSearchParams, searchValue]);
   useEffect(() => {
     getCharacters();
   }, [getCharacters]);
@@ -63,7 +73,14 @@ export const MainPage = () => {
           <h3>{error}</h3>
         ) : (
           <>
-            <Cards cards={cards} />
+            <div className={clsx('first', details && 'flex', 'second')}>
+              <Cards cards={cards} />
+              {details && (
+                <aside className="w-1/3 border-l pl-4">
+                  <Outlet />
+                </aside>
+              )}
+            </div>
             <div className="flex gap-2">
               <Button
                 variant="light"
@@ -85,9 +102,6 @@ export const MainPage = () => {
           </>
         )}
       </section>
-      <aside className="w-1/3 border-l pl-4">
-        <Outlet />
-      </aside>
     </>
   );
 };
