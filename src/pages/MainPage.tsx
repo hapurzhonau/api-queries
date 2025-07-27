@@ -7,22 +7,27 @@ import { ButtonError } from '../components/buttonError/ButtonError';
 import { CardsSkeleton } from '../components/cardsSkeleton/CardsSkeleton';
 import { Button } from '../components/button/Button';
 import { Outlet, useSearchParams } from 'react-router-dom';
+import { useLocalStorage } from '../utils/custom-hook/useLocalStorage';
 
 export const MainPage = () => {
   const [cards, setCards] = useState<Character[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchValue, setSearchValue] = useLocalStorage('search', '');
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const name = searchParams.get('name') || '';
 
-  const handlePageChange = (newPage: number) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setSearchParams({ page: newPage.toString(), name });
-    }
-  };
+  const handlePageChange = useCallback(
+    (newPage: number) => {
+      if (newPage >= 1 && newPage <= totalPages) {
+        setSearchParams({ page: newPage.toString(), name: searchValue });
+      }
+    },
+    [searchValue, setSearchParams, totalPages]
+  );
 
   const getCharacters = useCallback(async () => {
     setIsLoading(true);
@@ -39,14 +44,15 @@ export const MainPage = () => {
   }, [page, name]);
 
   const handleGetSearchValue = (value: string) => {
-    localStorage.setItem('search', value);
+    setSearchValue(value);
     setSearchParams({ page: '1', name: value });
     getCharacters();
   };
 
   useEffect(() => {
     getCharacters();
-  }, [getCharacters]);
+    handlePageChange(page);
+  }, [getCharacters, handlePageChange, page]);
 
   return (
     <>
