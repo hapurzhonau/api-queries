@@ -11,8 +11,8 @@ export const Button = ({ children, className, ...rest }: ButtonProps) => {
     'border-2 rounded-sm px-3 bg-gray-700 cursor-pointer max-w-fit';
 
   const variants: Record<string, string> = {
-    light: 'bg-gray-700 text-white hover:bg-gray-500',
-    dark: 'bg-gray-300 text-black hover:bg-gray-600',
+    light: 'bg-gray-300 text-black hover:bg-gray-600',
+    dark: 'bg-gray-700 text-white hover:bg-gray-500',
   };
   return (
     <button

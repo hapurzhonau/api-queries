@@ -4,11 +4,11 @@ import { useContext, useState } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
 export const HeaderNavbar = () => {
-  const [title, setTitle] = useState(true);
+  const [title, setTitle] = useState('light');
   const { toggleTheme } = useContext(ThemeContext);
 
   const handleClick = () => {
-    setTitle((prev) => !prev);
+    setTitle((prev) => (prev === 'light' ? 'dark' : 'light'));
     toggleTheme();
   };
 
@@ -16,7 +16,7 @@ export const HeaderNavbar = () => {
     <>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/about">About</NavLink>
-      <Button onClick={handleClick}>{title ? 'light' : 'dark'}</Button>
+      <Button onClick={handleClick}>{title}</Button>
     </>
   );
 };

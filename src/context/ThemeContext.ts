@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-export interface ThemeContextProps {
+interface ThemeContextProps {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
