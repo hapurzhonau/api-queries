@@ -18,22 +18,16 @@ export const Search = ({ handleGetSearchValue }: Props) => {
     else handleGetSearchValue('');
   };
   return (
-    <form
-      onSubmit={handleFormSubmit}
-      style={{ display: 'flex' }}
-      className="gap-3"
-    >
+    <form onSubmit={handleFormSubmit} className="gap-3 flex justify-center">
       <input
         name="search"
         type="text"
         placeholder=" Search"
-        className="border-2 rounded-sm w-sm"
+        className="border-2 rounded-sm w-sm px-2 py-1 dark:text-black text-white bg-gray-700 dark:bg-gray-200"
         value={inputState}
         onChange={handleOnchange}
       />
-      <button className="border-2 cursor-pointer rounded-sm px-3 py-1 bg-gray-700">
-        Search
-      </button>
+      <button>Search</button>
     </form>
   );
 };

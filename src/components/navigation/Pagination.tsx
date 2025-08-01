@@ -14,7 +14,7 @@ export const Pagination = ({
   onNext,
 }: PaginationProps) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 justify-center">
       <Button onClick={() => onPrev(page - 1)} disabled={page <= 1}>
         Prev
       </Button>
