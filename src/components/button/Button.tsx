@@ -1,26 +1,22 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { useContext, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { ThemeContext } from '../../context/ThemeContext';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'light' | 'dark';
   children: ReactNode;
 }
 
-export const Button = ({
-  variant = 'light',
-  children,
-  className,
-  ...rest
-}: ButtonProps) => {
+export const Button = ({ children, className, ...rest }: ButtonProps) => {
+  const { theme } = useContext(ThemeContext);
   const baseClasses =
     'border-2 rounded-sm px-3 bg-gray-700 cursor-pointer max-w-fit';
-  const variants: Record<typeof variant, string> = {
+
+  const variants: Record<string, string> = {
     light: 'bg-gray-700 text-white hover:bg-gray-500',
     dark: 'bg-gray-300 text-black hover:bg-gray-600',
   };
-
   return (
     <button
-      className={`${baseClasses} ${variants[variant]} ${className || ''}`}
+      className={`${baseClasses} ${variants[theme]} ${className || ''}`}
       {...rest}
     >
       {children}

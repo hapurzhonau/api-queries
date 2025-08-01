@@ -79,7 +79,6 @@ export const MainPage = () => {
             </div>
             <div className="flex gap-2">
               <Button
-                variant="light"
                 onClick={() => handlePageChange(page - 1)}
                 disabled={page <= 1}
               >
