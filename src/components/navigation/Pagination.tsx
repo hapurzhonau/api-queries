@@ -23,7 +23,7 @@ export const Pagination = ({
         disabled={page <= 1}
         className="border-0 "
       >
-        <ArrowLeftCircleIcon />
+        <ArrowLeftCircleIcon stroke-width="0.8" />
       </Button>
       <span>
         {page} / {totalPages}
@@ -33,7 +33,7 @@ export const Pagination = ({
         disabled={page >= totalPages}
         className="border-0"
       >
-        <ArrowRightCircleIcon />
+        <ArrowRightCircleIcon stroke-width="0.8" />
       </Button>
     </div>
   );

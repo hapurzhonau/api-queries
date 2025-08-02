@@ -1,8 +1,9 @@
 import { create } from 'zustand';
+import type { Character } from '../interfaces/apiInterface';
 
 interface StoreCardsProps {
-  selectedCards: number[];
-  toggleCard: (id: number) => void;
+  selectedCards: Character[];
+  toggleCard: (card: Character) => void;
   clearAllCards: () => void;
   isSelected: (id: number) => boolean;
 }
@@ -10,16 +11,16 @@ interface StoreCardsProps {
 export const useCardsStore = create<StoreCardsProps>((setNew, getCurrent) => ({
   selectedCards: [],
 
-  toggleCard: (id) => {
+  toggleCard: (card) => {
     const { selectedCards } = getCurrent();
-    const isSelected = selectedCards.includes(id);
+    const isSelected = selectedCards.some((el) => el.id === card.id);
 
     setNew({
       selectedCards: isSelected
-        ? selectedCards.filter((cardId) => cardId !== id)
-        : [...selectedCards, id],
+        ? selectedCards.filter((el) => el.id !== card.id)
+        : [...selectedCards, card],
     });
   },
   clearAllCards: () => setNew({ selectedCards: [] }),
-  isSelected: (id) => getCurrent().selectedCards.includes(id),
+  isSelected: (id) => getCurrent().selectedCards.some((card) => card.id === id),
 }));

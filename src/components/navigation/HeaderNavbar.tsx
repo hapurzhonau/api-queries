@@ -5,7 +5,8 @@ import { ThemeContext } from '../../context/ThemeContext';
 import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
 export const HeaderNavbar = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const currentIcon = theme === 'dark' ? <SunIcon /> : <MoonIcon />;
+  const currentIcon =
+    theme === 'dark' ? <SunIcon stroke-width="1.8" /> : <MoonIcon />;
   const handleClick = () => {
     toggleTheme();
   };

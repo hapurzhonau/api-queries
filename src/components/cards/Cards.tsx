@@ -23,7 +23,7 @@ export const Cards = ({ cards }: Props) => {
         cards.map((card) => (
           <li
             key={card.id}
-            className="bg-gray-700 rounded-sm p-1 max-w-fit max-h-fit dark:bg-gray-500"
+            className="bg-gray-700 rounded-sm p-1 pb-0 max-w-fit max-h-fit dark:bg-gray-500"
           >
             <button
               onClick={() => handleClick(card.id.toString())}
@@ -40,7 +40,8 @@ export const Cards = ({ cards }: Props) => {
               type="checkbox"
               checked={isSelected(card.id)}
               name="card-checkbox"
-              onChange={() => toggleCard(card.id)}
+              onChange={() => toggleCard(card)}
+              className="w-4 aspect-square"
             />
           </li>
         ))
