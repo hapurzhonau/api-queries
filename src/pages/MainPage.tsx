@@ -58,6 +58,12 @@ export const MainPage = () => {
   return (
     <section role="region" className="flex-1 flex flex-col gap-4">
       <Search handleGetSearchValue={handleGetSearchValue} />
+      <Pagination
+        page={page}
+        totalPages={totalPages}
+        onPrev={() => handlePageChange(page - 1)}
+        onNext={() => handlePageChange(page + 1)}
+      />
       {isLoading ? (
         <CardsSkeleton />
       ) : error ? (
@@ -70,7 +76,7 @@ export const MainPage = () => {
           >
             <Cards cards={cards} />
             {details && (
-              <aside className="w-1/3 border-l pl-4">
+              <aside className="w-3/5 border-l pl-4">
                 <Outlet />
               </aside>
             )}

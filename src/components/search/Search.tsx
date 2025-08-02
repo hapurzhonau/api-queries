@@ -1,5 +1,5 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 interface Props {
   handleGetSearchValue: (value: string) => void;
 }
@@ -18,16 +18,18 @@ export const Search = ({ handleGetSearchValue }: Props) => {
     else handleGetSearchValue('');
   };
   return (
-    <form onSubmit={handleFormSubmit} className="gap-3 flex justify-center">
+    <form onSubmit={handleFormSubmit} className="flex justify-center">
       <input
         name="search"
         type="text"
         placeholder=" Search"
-        className="border-2 rounded-sm w-sm px-2 py-1 dark:text-black text-white bg-gray-700 dark:bg-gray-200"
+        className="border-1 rounded-l-2xl w-sm px-2 py-1 dark:text-black text-white bg-gray-700 dark:bg-gray-200 outline-0"
         value={inputState}
         onChange={handleOnchange}
       />
-      <button>Search</button>
+      <button className="rounded-none rounded-r-2xl border-l-0 border-1 px-4">
+        <MagnifyingGlassIcon />
+      </button>
     </form>
   );
 };

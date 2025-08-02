@@ -15,7 +15,7 @@ export const Layout = () => {
       <div
         className={`${currentTheme} bg-gray-900 text-white dark:bg-gray-100 min-h-dvh dark:text-black flex`}
       >
-        <div className="max-w-7xl w-full mx-auto">
+        <div className="max-w-fit w-full mx-auto">
           <header className="p-4 bg-gray-700 flex gap-4 dark:bg-gray-300">
             <HeaderNavbar />
           </header>
