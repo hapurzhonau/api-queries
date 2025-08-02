@@ -27,7 +27,10 @@ export const Search = ({ handleGetSearchValue }: Props) => {
         value={inputState}
         onChange={handleOnchange}
       />
-      <button className="rounded-none rounded-r-2xl border-l-0 border-1 px-4">
+      <button
+        className="rounded-none rounded-r-2xl border-l-0 border-1 px-4"
+        role="search"
+      >
         <MagnifyingGlassIcon />
       </button>
     </form>
