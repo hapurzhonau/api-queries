@@ -16,7 +16,7 @@ export const HeaderNavbar = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/about">About</NavLink>
       </div>
-      <Button onClick={handleClick} className="border-0">
+      <Button onClick={handleClick} className="border-0 rounded-full p-1">
         {currentIcon}
       </Button>
     </nav>
