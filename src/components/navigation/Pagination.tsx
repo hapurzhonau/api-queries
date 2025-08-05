@@ -6,20 +6,18 @@ import {
 interface PaginationProps {
   page: number;
   totalPages: number;
-  onPrev: (page: number) => void;
-  onNext: (page: number) => void;
+  changePage: (pageNumber: number) => void;
 }
 
 export const Pagination = ({
   page,
   totalPages,
-  onPrev,
-  onNext,
+  changePage,
 }: PaginationProps) => {
   return (
     <div className="flex gap-2 justify-center items-center">
       <Button
-        onClick={() => onPrev(page - 1)}
+        onClick={() => changePage(page - 1)}
         disabled={page <= 1}
         className="border-0 rounded-full p-1"
       >
@@ -29,7 +27,7 @@ export const Pagination = ({
         {page} / {totalPages}
       </span>
       <Button
-        onClick={() => onNext(page + 1)}
+        onClick={() => changePage(page + 1)}
         disabled={page >= totalPages}
         className="border-0 rounded-full p-1"
       >
