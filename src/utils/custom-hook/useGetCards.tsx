@@ -1,56 +1,47 @@
-import { useState, useCallback, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { getAllCharacters } from '../../api/Api';
-import type { Character } from '../../interfaces/apiInterface';
+
 import { useLocalStorage } from './useLocalStorage';
+import { useCharactersQuery } from './useCharactersQuery';
+import { useCallback } from 'react';
 
 export const useGetCards = () => {
-  const [cards, setCards] = useState<Character[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [totalPages, setTotalPages] = useState(1);
   const [searchValue, setSearchValue] = useLocalStorage('search', '');
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const name = searchParams.get('name') || '';
-
+  const { isLoading, data, isFetching, error } = useCharactersQuery(
+    page,
+    name || searchValue
+  );
+  const cards = data?.results || [];
+  const totalPages = data?.info.pages || 1;
   const handlePageChange = useCallback(
     (newPage: number) => {
       if (newPage >= 1 && newPage <= totalPages) {
-        setSearchParams({ page: newPage.toString(), name: searchValue });
+        searchParams.set('page', newPage.toString());
+        setSearchParams(searchParams);
       }
     },
-    [searchValue, setSearchParams, totalPages]
+    [searchParams, setSearchParams, totalPages]
   );
-
-  const getCharacters = useCallback(async () => {
-    setIsLoading(true);
-    const data = await getAllCharacters(page, name);
-    setIsLoading(false);
-
-    if (data.error) {
-      setError(data.error);
-    } else {
-      setCards(data.results);
-      setError(undefined);
-      setTotalPages(data.info.pages);
-    }
-  }, [page, name]);
 
   const handleGetSearchValue = (value: string) => {
     setSearchValue(value);
     setSearchParams({ page: '1', name: value });
   };
 
-  useEffect(() => {
-    getCharacters();
-  }, [getCharacters]);
-
   const pagination = {
-    page,
     totalPages,
     handlePageChange,
+    page,
   };
-  return { handleGetSearchValue, pagination, isLoading, error, cards };
+  return {
+    handleGetSearchValue,
+    pagination,
+    isLoading,
+    error,
+    cards,
+    isFetching,
+  };
 };

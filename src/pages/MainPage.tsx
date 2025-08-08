@@ -9,34 +9,22 @@ import { useGetCards } from '../utils/custom-hook/useGetCards';
 
 export const MainPage = () => {
   const { id: details } = useParams();
-  const {
-    cards,
-    error,
-    handleGetSearchValue,
-    isLoading,
-    pagination: { handlePageChange, page, totalPages },
-  } = useGetCards();
-  if (error) return <h3>{error}</h3>;
+  const { cards, error, handleGetSearchValue, isLoading, pagination } =
+    useGetCards();
+
+  if (error) return <h3>{error.message}</h3>;
   return (
     <section role="region" className="flex-1 flex flex-col gap-4">
       <Search handleGetSearchValue={handleGetSearchValue} />
       {isLoading && <CardsSkeleton />}
       {!isLoading && (
         <>
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            changePage={handlePageChange}
-          />
+          <Pagination {...pagination} />
           <div role="complementary" className={clsx(details && 'flex')}>
             <Cards cards={cards} />
             <Outlet />
           </div>
-          <Pagination
-            page={page}
-            totalPages={totalPages}
-            changePage={handlePageChange}
-          />
+          <Pagination {...pagination} />
           <Flyout />
         </>
       )}
