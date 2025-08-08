@@ -1,13 +1,17 @@
 import { type FormEvent } from 'react';
 import { Button } from '../button/Button';
 
-import { useCardsStore } from '../../store/useCardsStore';
+import { useCardsCheckboxStore } from '../../store/useCardsCheckboxStore';
 import { DownloadCsv } from '../../utils/file/downloadCsv';
 
 export const Flyout = () => {
-  const { clearAllCards } = useCardsStore();
-  const cardsCount = useCardsStore((state) => state.selectedCards.length);
-  const selectedCardsIdArray = useCardsStore((state) => state.selectedCards);
+  const { clearAllCards } = useCardsCheckboxStore();
+  const cardsCount = useCardsCheckboxStore(
+    (state) => state.selectedCards.length
+  );
+  const selectedCardsIdArray = useCardsCheckboxStore(
+    (state) => state.selectedCards
+  );
 
   if (cardsCount === 0) return null;
   const currentCardsCountAndTitle =

@@ -1,6 +1,6 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { Character } from '../../interfaces/apiInterface';
-import { useCardsStore } from '../../store/useCardsStore';
+import { useCardsCheckboxStore } from '../../store/useCardsCheckboxStore';
 
 interface Props {
   cards: Character[];
@@ -9,7 +9,7 @@ interface Props {
 export const Cards = ({ cards }: Props) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { toggleCard, isSelected } = useCardsStore();
+  const { toggleCard, isSelected } = useCardsCheckboxStore();
   const handleClick = (id: string) => {
     const prevParams = new URLSearchParams(searchParams);
     navigate({
