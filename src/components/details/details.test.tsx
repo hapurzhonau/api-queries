@@ -43,7 +43,7 @@ describe('Details component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByText(/Loading details.../i)).toBeDefined();
+    expect(screen.getByText(/status.../i)).toBeDefined();
 
     await waitFor(() => {
       expect(
