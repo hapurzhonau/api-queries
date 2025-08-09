@@ -3,15 +3,22 @@ import { MainPage } from './MainPage';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
 import { user } from '../__test__/setupTests';
 import { MemoryRouter } from 'react-router-dom';
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { retry: false },
+  },
+});
 describe('MainPage component', () => {
   beforeEach(() => {
     cleanup();
     localStorage.clear();
     render(
-      <MemoryRouter>
-        <MainPage />
-      </MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <MainPage />
+        </MemoryRouter>
+      </QueryClientProvider>
     );
   });
 
