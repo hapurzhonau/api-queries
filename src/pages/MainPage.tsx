@@ -20,7 +20,8 @@ export const MainPage = () => {
     refetch,
   } = useGetCards();
 
-  if (error) return <h3>{error.message}</h3>;
+  if (error)
+    return <h3 className="text-xl font-bold text-red-300">{error.message}</h3>;
   return (
     <>
       <div className="flex gap-2 pb-2">
