@@ -20,7 +20,7 @@ const createWrapper = () => {
   return wrapper;
 };
 describe('useGetCharactersQuery', () => {
-  test.only('get success characters', async () => {
+  test('get success characters', async () => {
     const { result } = renderHook(() => useGetCharactersQuery(1, ''), {
       wrapper: createWrapper(),
     });
@@ -28,7 +28,7 @@ describe('useGetCharactersQuery', () => {
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data?.results).toEqual(mockCharacters);
   });
-  test.only('handle query error', async () => {
+  test('handle query error', async () => {
     server.use(
       http.get(API_URL, () => {
         return HttpResponse.json(
