@@ -1,7 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
-
 import { useLocalStorage } from './useLocalStorage';
-import { useCharactersQuery } from './useCharactersQuery';
+import { useGetCharactersQuery } from './useGetCharactersQuery';
 import { useCallback } from 'react';
 
 export const useGetCards = () => {
@@ -10,7 +9,7 @@ export const useGetCards = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const name = searchParams.get('name') || '';
-  const { isLoading, data, isFetching, error } = useCharactersQuery(
+  const { isLoading, data, isFetching, error, refetch } = useGetCharactersQuery(
     page,
     name || searchValue
   );
@@ -43,5 +42,6 @@ export const useGetCards = () => {
     error,
     cards,
     isFetching,
+    refetch,
   };
 };

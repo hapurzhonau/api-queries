@@ -1,6 +1,7 @@
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { Character } from '../../interfaces/apiInterface';
 import { useCardsCheckboxStore } from '../../store/useCardsCheckboxStore';
+import { Button } from '../button/Button';
 
 interface Props {
   cards: Character[];
@@ -25,7 +26,7 @@ export const Cards = ({ cards }: Props) => {
             key={card.id}
             className="bg-gray-700 rounded-sm p-1 pb-0 max-w-fit max-h-fit dark:bg-gray-500"
           >
-            <button
+            <Button
               onClick={() => handleClick(card.id.toString())}
               className="block w-full border-0"
             >
@@ -35,7 +36,7 @@ export const Cards = ({ cards }: Props) => {
                 alt={card.name}
               />
               <p>{card.name}</p>
-            </button>
+            </Button>
             <input
               type="checkbox"
               checked={isSelected(card.id)}

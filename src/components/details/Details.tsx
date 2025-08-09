@@ -1,12 +1,36 @@
-import { useGetDetails } from '../../utils/custom-hook/useGetDetails';
+import clsx from 'clsx';
+import { useGetDetailsQuery } from '../../utils/custom-hook/useGetDetailsQuery';
 import { Button } from '../button/Button';
 import { DetailsSkeleton } from '../cardsSkeleton/DetailsSkeleton';
 
 export const Details = () => {
-  const { character, handleGoHome, isLoading } = useGetDetails();
+  const { character, handleGoHome, isLoading, error, isFetching, refetch } =
+    useGetDetailsQuery();
   return (
-    <aside className="flex flex-col gap-4 w-3/5 pl-4">
+    <aside className="p-2 flex flex-col gap-4">
+      <div className="flex gap-2 flex-wrap">
+        <div
+          className={clsx(
+            'p-1 rounded-md',
+            isLoading ? 'bg-green-400' : 'bg-blue-400'
+          )}
+        >
+          Load
+        </div>
+        <div
+          className={clsx(
+            'p-1 rounded-md',
+            isFetching ? 'bg-green-400' : 'bg-blue-400'
+          )}
+        >
+          Fetch
+        </div>
+        <Button onClick={() => refetch()}>refetch</Button>
+      </div>
       <Button onClick={handleGoHome}>Close</Button>
+      {error && (
+        <h2 className="text-xl font-bold text-red-200">{error.message}</h2>
+      )}
       {isLoading && <DetailsSkeleton />}
       {character && (
         <>
