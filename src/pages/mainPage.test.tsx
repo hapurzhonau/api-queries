@@ -62,7 +62,7 @@ describe('MainPage component', () => {
       expect(screen.queryAllByRole('listitem', { busy: false })).toHaveLength(
         0
       );
-      expect(screen.getByRole('heading', { level: 3 })).toBeInTheDocument();
+      expect(screen.getByRole('paragraph')).toBeInTheDocument();
     });
   });
   test('open details with click on card ', async () => {

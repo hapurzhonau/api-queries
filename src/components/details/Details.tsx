@@ -1,11 +1,19 @@
 import clsx from 'clsx';
-import { useGetDetailsQuery } from '../../utils/custom-hook/useGetDetailsQuery';
+import { useDetailsController } from '../../utils/custom-hook/useDetailsController';
 import { Button } from '../button/Button';
-import { DetailsSkeleton } from '../cardsSkeleton/DetailsSkeleton';
+import { DetailsSkeleton } from '../skeletons/DetailsSkeleton';
 
 export const Details = () => {
-  const { character, handleGoHome, isLoading, error, isFetching, refetch } =
-    useGetDetailsQuery();
+  const {
+    character,
+    handleGoHome,
+    isLoading,
+    error,
+    isFetching,
+    refetch,
+    isError,
+    invalidateCache,
+  } = useDetailsController();
   return (
     <div className="relative">
       <aside className="p-2 flex flex-col gap-4 sticky top-0">
@@ -26,9 +34,20 @@ export const Details = () => {
           >
             Fetch
           </div>
+          <div
+            className={clsx(
+              'p-1 rounded-md',
+              !isError ? 'bg-blue-400' : 'bg-red-400'
+            )}
+          >
+            {!isError ? 'Ok' : 'Error'}
+          </div>
           <Button onClick={() => refetch()}>refetch</Button>
+          <Button onClick={invalidateCache}>invalidate</Button>
         </div>
-        <Button onClick={handleGoHome}>Close</Button>
+        <Button onClick={handleGoHome} className="border-orange-400">
+          Close
+        </Button>
         {error && (
           <h2 className="text-xl font-bold text-red-300">{error.message}</h2>
         )}

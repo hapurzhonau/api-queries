@@ -1,6 +1,6 @@
 import { Search } from '../components/search/Search';
 import { Cards } from '../components/cards/Cards';
-import { CardsSkeleton } from '../components/cardsSkeleton/CardsSkeleton';
+import { CardsSkeleton } from '../components/skeletons/CardsSkeleton';
 import { Outlet, useParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { Flyout } from '../components/flyout/Flyout';
@@ -12,16 +12,16 @@ export const MainPage = () => {
   const { id: details } = useParams();
   const {
     cards,
-    error,
     handleGetSearchValue,
     isLoading,
     pagination,
     isFetching,
     refetch,
+    isError,
+    invalidateCache,
+    error,
   } = useGetCards();
 
-  if (error)
-    return <h3 className="text-xl font-bold text-red-300">{error.message}</h3>;
   return (
     <>
       <div className="flex gap-2 pb-2">
@@ -41,17 +41,26 @@ export const MainPage = () => {
         >
           Fetch
         </div>
+        <div
+          className={clsx(
+            'p-1 rounded-md',
+            !isError ? 'bg-blue-400' : 'bg-red-400'
+          )}
+        >
+          {!isError ? 'Ok' : 'Error'}
+        </div>
         <Button onClick={() => refetch()}>refetch</Button>
+        <Button onClick={invalidateCache}>invalidate</Button>
       </div>
       <section role="region" className="flex-1 flex flex-col gap-4">
         <Search handleGetSearchValue={handleGetSearchValue} />
-
         {(isLoading || isFetching) && <CardsSkeleton />}
+
         {!isLoading && (
           <>
             <Pagination {...pagination} />
             <div role="complementary" className={clsx(details && 'flex')}>
-              <Cards cards={cards} />
+              <Cards cards={cards} isError={isError} error={error} />
               <Outlet />
             </div>
             <Pagination {...pagination} />

@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { useLocalStorage } from './useLocalStorage';
 import { useGetCharactersQuery } from './useGetCharactersQuery';
 import { useCallback } from 'react';
+import { queryClient } from '../../lib/queryClient';
 
 export const useGetCards = () => {
   const [searchValue, setSearchValue] = useLocalStorage('search', '');
@@ -9,10 +10,13 @@ export const useGetCards = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const page = Number(searchParams.get('page') || 1);
   const name = searchParams.get('name') || '';
-  const { isLoading, data, isFetching, error, refetch } = useGetCharactersQuery(
-    page,
-    name || searchValue
-  );
+
+  const { isLoading, data, isFetching, error, refetch, isError } =
+    useGetCharactersQuery(page, name || searchValue);
+
+  const invalidateCache = () => {
+    queryClient.invalidateQueries({ queryKey: ['characters'] });
+  };
   const cards = data?.results || [];
   const totalPages = data?.info.pages || 1;
   const handlePageChange = useCallback(
@@ -35,6 +39,7 @@ export const useGetCards = () => {
     handlePageChange,
     page,
   };
+
   return {
     handleGetSearchValue,
     pagination,
@@ -43,5 +48,7 @@ export const useGetCards = () => {
     cards,
     isFetching,
     refetch,
+    isError,
+    invalidateCache,
   };
 };

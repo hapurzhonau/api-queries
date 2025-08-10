@@ -10,7 +10,7 @@ export const getAllCharacters = async (page = 1, name = '') => {
 };
 export const getDetails = async (id: string | undefined) => {
   const response = await fetch(`${API_URL}/${id}`);
-  const data = await response.json();
+  const data: Character = await response.json();
   if (!response.ok) throw new Error(data.error);
-  return data as Character;
+  return data;
 };
