@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest';
 import { MainPage } from './MainPage';
 import { cleanup, render, screen, waitFor } from '@testing-library/react';
-import { user } from '../__test__/setupTests';
+import { mockLocalStorage, user } from '../__test__/setupTests';
 import { MemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient({
@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
 describe('MainPage component', () => {
   beforeEach(() => {
     cleanup();
-    localStorage.clear();
+    mockLocalStorage.removeItem();
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -25,8 +25,11 @@ describe('MainPage component', () => {
   test('initial render', async () => {
     const button = screen.getByRole('search');
     const input = screen.getByPlaceholderText(/search/i);
+    const skeletons = screen.getAllByRole('listitem', { busy: true });
     const cardsList = await screen.findAllByRole('listitem', { busy: false });
-
+    const skeletons2 = screen.queryByRole('listitem', { busy: true });
+    expect(skeletons).toHaveLength(20);
+    expect(skeletons2).not.toBeInTheDocument();
     expect(button).toBeInTheDocument();
     expect(input).toBeInTheDocument();
     expect(input).toHaveValue('');
